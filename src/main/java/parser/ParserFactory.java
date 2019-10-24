@@ -18,6 +18,8 @@ import ui.Ui;
 public class ParserFactory {
     private static final boolean IGNORE = true;
     private static final boolean UNIGNORE = false;
+    private static final boolean SAVE = true;
+    private static final boolean LOAD = false;
     private static final String WRONG_COMMAND = "Wrong Command";
 
     /**
@@ -26,7 +28,7 @@ public class ParserFactory {
      * @param userInput This string is provided by the user to ask 'Duke' to perform
      *                  a particular action
      * @return Command After processing the user's input it returns the correct
-     *                  command for further processing
+     * command for further processing
      * @throws DukeException The DukeException class has all the respective methods
      *                       and messages!
      */
@@ -78,6 +80,10 @@ public class ParserFactory {
             return new LocationParser(userInput, command).parse();
         case "schedule":
             return new ScheduleParser(userInput, command).parse();
+        case "save":
+            return new StorageParser(userInput, command, SAVE).parse();
+        case "load":
+            return new StorageParser(userInput,command,LOAD).parse();
 
         default:
             // Empty string or unknown command.

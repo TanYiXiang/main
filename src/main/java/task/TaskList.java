@@ -13,7 +13,7 @@ import java.util.Comparator;
  */
 public class TaskList {
 
-    private ArrayList<Task> listOfTasks;
+    public ArrayList<Task> listOfTasks;
 
     public TaskList(ArrayList<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
@@ -145,7 +145,7 @@ public class TaskList {
      * This function allows the user to adda location to tasks.
      *
      * @param taskWithLocation is of String type which contains the desired date of
-     *                  schedule.
+     *                         schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
     public Task addLocation(Integer indexOfTask, String taskWithLocation) {
@@ -207,7 +207,7 @@ public class TaskList {
         ArrayList<String> scheduleDescriptionOnly = new ArrayList<>();
         for (int i = 0; i < obtainDescriptions.size(); i++) {
             if (obtainDescriptions.get(i).toString().contains(dayToFind)) {
-                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+",2)[0].trim());
+                scheduleDescriptionOnly.add(obtainDescriptions.get(i).description.split("\\d+", 2)[0].trim());
             }
         }
         return scheduleDescriptionOnly;

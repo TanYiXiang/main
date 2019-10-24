@@ -21,17 +21,12 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    @SuppressWarnings("unchecked")
-    private static <T> T castToAnything(Object obj) {
-        return (T) obj;
-    }
-
     private File file;
     private FileOutputStream fileOutputStream;
     private ObjectOutputStream objectOutputStream;
     private FileInputStream fileInputStream;
     private ObjectInputStream objectInputStream;
-
+    private String filePath = System.getProperty("user.dir") + "/src/DukeDatabase/";
 
     /**
      * This Storage constructor is used to function is used to assign the different
@@ -56,7 +51,7 @@ public class Storage {
      */
     public void saveFile(ArrayList<Task> listOfTasks) throws DukeException {
         try {
-            setOutputStreams();
+            initializeOutputStreams();
             objectOutputStream.writeObject(listOfTasks);
             objectOutputStream.close(); // always close
             fileOutputStream.close(); // always close
@@ -79,7 +74,7 @@ public class Storage {
         ArrayList<Task> listOfTasks;
         try {
             setInputStreams(file);
-            listOfTasks = (ArrayList<Task>)(objectInputStream.readObject());
+            listOfTasks = (ArrayList<Task>) (objectInputStream.readObject());
             fileInputStream.close();
             objectInputStream.close();
             return listOfTasks;
@@ -94,7 +89,31 @@ public class Storage {
         }
     }
 
-    private void setOutputStreams() throws IOException {
+    public void manualSave(String fileName, ArrayList<Task> listOfTasks) throws DukeException {
+        String newFilePath = filePath.concat(fileName);
+        File saveFile = new File(newFilePath);
+        try {
+            setOutputStreams(saveFile);
+            objectOutputStream.writeObject(listOfTasks);
+            objectOutputStream.close(); // always close
+            fileOutputStream.close(); // always close
+        } catch (IOException e) {
+            throw new DukeException(DukeException.unableToWriteFile());
+        }
+    }
+
+    public ArrayList<Task> manualLoad(String fileName) throws DukeException{
+        String newFilePath = filePath.concat(fileName);
+        File loadFile = new File(newFilePath);
+        return loadFile(loadFile);
+    }
+
+    private void initializeOutputStreams() throws IOException {
+        this.fileOutputStream = new FileOutputStream(file);
+        this.objectOutputStream = new ObjectOutputStream(fileOutputStream);
+    }
+
+    private void setOutputStreams(File file) throws IOException {
         this.fileOutputStream = new FileOutputStream(file);
         this.objectOutputStream = new ObjectOutputStream(fileOutputStream);
     }
