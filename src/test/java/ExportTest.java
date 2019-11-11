@@ -57,6 +57,7 @@ class ExportTest {
 
     /**
      * Convert local date time to calendar format.
+     *
      * @param startDate The date to be converted
      * @return The calendar with the converted date.
      */
@@ -75,7 +76,7 @@ class ExportTest {
     @Test
     void testExport() throws ChronologerException, IOException, ParserException, ParseException {
         //File placeHolder = new File(System.getProperty("user.dir") + "/src/test/States");
-       // ChronologerStateList history = new ChronologerStateList(placeHolder, placeHolder, placeHolder);
+        // ChronologerStateList history = new ChronologerStateList(placeHolder, placeHolder, placeHolder);
 
         Command export = new ExportCommand("ExportTest", Boolean.TRUE, Boolean.FALSE, Boolean.FALSE);
         export.execute(tasks, null, null);
